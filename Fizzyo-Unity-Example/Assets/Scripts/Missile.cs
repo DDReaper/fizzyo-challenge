@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Missile : MonoBehaviour {
 
     Vector3 dir = new Vector3(0.1f,0,0);
     int age = 0;
     int lifeSpan = 1000;
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,8 +18,5 @@ public class Missile : MonoBehaviour {
             Destroy(gameObject);
         }
         age++;
-
-
-
     }
 }

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartCalibrate : MonoBehaviour {
     //public 
     public Text startText;
-    public GameObject pressureBar;
+    //public GameObject pressureBar;
+    public Slider slider;
 
     //private
     private float maxPressureReading = 0;
@@ -20,15 +20,15 @@ public class StartCalibrate : MonoBehaviour {
     void Start () {
         // Create new stopwatch.
         blowingStopwatch = new System.Diagnostics.Stopwatch();
-        startText.text = ""+countdownToStart;
+        startText.text = countdownToStart.ToString();
     }
 	
 	// Update is called once per frame
 	void Update () {
         float pressure = FizzyoDevice.Instance().Pressure();
-        float y = transform.position.y + ((pressure * 5) - pressureBar.transform.position.y) * smoothing;
-        pressureBar.transform.position = new Vector3(pressureBar.transform.position.x,y , pressureBar.transform.position.z);
-
+        //float y = transform.position.y + ((pressure * 5) - pressureBar.transform.position.y) * smoothing;
+        //pressureBar.transform.position = new Vector3(pressureBar.transform.position.x,y , pressureBar.transform.position.z);
+        slider.value = (pressure * 5) * smoothing;
 
         if (pressure > minPressureThreshold )
         {
@@ -42,7 +42,7 @@ public class StartCalibrate : MonoBehaviour {
             }else{
                 //Save the max recorded pressure to use to scale sensor input during gameplay.
                 PlayerPrefs.SetFloat("Max Fizzyo Pressure", maxPressureReading);
-                SceneManager.LoadScene("SimpleJoystick");
+                SceneManager.LoadScene("JetpackLevel");
             }
         }
         else
